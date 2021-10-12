@@ -4,6 +4,7 @@ import axios from 'axios'
 import User from './components/User'
 import EditUser from './components/EditUser'
 import Search from './components/Search'
+import Pagination from './components/Pagination'
 
 const App = () => {
 
@@ -14,7 +15,12 @@ const App = () => {
     return data
   }
 
+
+
   const [users, setUsers] = useState([])
+  const [searchedUsers, setSearchedUsers] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [usersPerPage, setUsersPerPage] = useState(15)
   const [editUserId, setEditUserId] = useState(null)
   const [searchTerm, setSearchTerm] = useState("")
   const [editFormData, setEditFormData] = useState({
@@ -28,7 +34,10 @@ const App = () => {
       .then(data => {
         setUsers(data)
       })
+
   }, [])
+
+
 
 
   const checkedAll = (e) => {
@@ -105,6 +114,21 @@ const App = () => {
     console.log(e.target.value)
     setSearchTerm(e.target.value.toLowerCase())
 
+    // const newUsers = users.filter(val => {
+    //   if (searchTerm === "") {
+    //     return val
+    //   } else if (
+    //     val.name.toLowerCase().includes(searchTerm) || val.email.toLowerCase().includes(searchTerm)
+    //     || val.role.toLowerCase().includes(searchTerm)
+    //   ) {
+    //     return val
+    //   }
+    // })
+
+    // setSearchedUsers(newUsers)
+
+
+
   }
 
   const handleDeleteClick = (e, user) => {
@@ -124,6 +148,24 @@ const App = () => {
 
     setUsers(unSelectedUsers)
   }
+
+
+
+
+  // Get currentPageUsers
+
+
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+
+  // Change Page
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+
+
 
   return (
 
@@ -146,7 +188,10 @@ const App = () => {
           </thead>
 
           <tbody>
-            {users.filter((val) => {
+
+
+
+            {currentUsers.filter((val) => {
               if (searchTerm === "") {
                 return val
               } else if (
@@ -169,6 +214,7 @@ const App = () => {
         </table>
       </form>
       <button id="delete" onClick={deleteSelected} >Delete Selected</button>
+      <Pagination usersPerPage={usersPerPage} totalUsers={users.length} currentPage={currentPage} paginate={paginate} />
     </div>
   )
 }

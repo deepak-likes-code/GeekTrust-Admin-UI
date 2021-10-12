@@ -2,10 +2,8 @@ import React from 'react'
 
 const Search = ({ setSearch }) => {
 
-
-
     return (
-        <input type="text" id="search" placeholder="search by name, id or role" onChange={setSearch}></input>
+        <input type="text" id="search" placeholder="Search by Name, Email or Role" onChange={setSearch}></input>
     )
 }
 
