@@ -1,3 +1,7 @@
+body {
+  width: 100vw;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -15,7 +19,7 @@ td {
   border: 1px solid #ffffff;
   text-align: left;
   padding: 8px;
-  font-size: 32px;
+  font-size: 20px;
 }
 
 th {
@@ -41,5 +45,42 @@ form td:last-child {
 }
 
 form * {
-  font-size: 28px;
+  font-size: 20px;
+}
+
+#search {
+  border-radius: 20px;
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  height: 2.4rem;
+}
+
+#search:focus {
+  border-color: rgb(28, 135, 202);
+}
+
+#delete {
+  cursor: pointer;
+  width: 50%;
+  margin: auto;
+  font-size: 1.2rem;
+  background-color: rgb(91, 101, 236);
+  color: #ffffff;
+  outline: none;
+  border-style: none;
+  padding: 0.6rem;
+  border-radius: 25px;
+  display: block;
+}
+
+#delete:hover {
+  background-color: rgb(57, 69, 235);
+  font-weight: 700;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
 }

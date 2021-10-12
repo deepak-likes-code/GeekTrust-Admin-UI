@@ -1,6 +1,8 @@
 import React from 'react'
+import { FaRegTrashAlt } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 
-const User = ({ user }) => {
+const User = ({ user, handleEditClick, handleDeleteClick }) => {
 
 
 
@@ -29,6 +31,14 @@ const User = ({ user }) => {
             <td>{user.name}</td>
             <td>{user.email}</td>
             <td>{user.role}</td>
+            <td>
+                <button type="button" onClick={e => handleEditClick(e, user)}>
+                    <FaEdit />
+                </button>
+                <button type="button" onClick={e => handleDeleteClick(e, user)}>
+                    <FaRegTrashAlt />
+                </button>
+            </td>
         </tr>
     )
 }
