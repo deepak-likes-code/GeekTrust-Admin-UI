@@ -43,7 +43,7 @@ const Pagination = ({ currentPage, usersPerPage, totalUsers, paginate }) => {
                     {
                         currentPage < pageNumbers.length && (
                             <li className="page-item"> <Link to="#" className="page-link"
-                                onClick={() => paginate(currentPage = 1)}
+                                onClick={() => paginate(currentPage + 1)}
                             >&gt;</Link></li>
                         )
                     }
