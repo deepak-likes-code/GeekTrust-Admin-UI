@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 
 const Pagination = ({ currentPage, usersPerPage, totalUsers, paginate }) => {
 
@@ -12,43 +13,48 @@ const Pagination = ({ currentPage, usersPerPage, totalUsers, paginate }) => {
     }
 
     return (
-        <nav className="page">
-            <ul className="pagination">
-                <li className="page-item"> <a href="!#" className="page-link"
-                    onClick={() => paginate(1)}
-                >&lt;&lt;</a></li>
-                {
-                    currentPage > 1 && (
-                        <li className="page-item"> <a href="!#" className="page-link"
-                            onClick={() => paginate(currentPage - 1)}
-                        >&lt;</a></li>
-                    )
-                }
+        <Router>
 
-                {pageNumbers.map(number => (
-                    <li id={`page-${number}`} key={number} className="page-item">
-                        <a href="!#" className="page-link"
-                            onClick={() => paginate(number)}
-                        >
-                            {number}
-                        </a>
-                    </li>
-                ))}
 
-                {
-                    currentPage < pageNumbers.length && (
-                        <li className="page-item"> <a href="!#" className="page-link"
-                            onClick={() => paginate(currentPage + 1)}
-                        >&gt;</a></li>
-                    )
-                }
-                <li className="page-item"> <a href="!#" className="page-link"
-                    onClick={() => paginate(pageNumbers.length)}
-                >&gt;&gt;</a></li>
 
-            </ul>
+            <nav className="page">
+                <ul className="pagination">
+                    <li className="page-item"> <Link to="#" className="page-link"
+                        onClick={() => paginate(1)}
+                    >&lt;&lt;</Link></li>
+                    {
+                        currentPage > 1 && (
+                            <li className="page-item"> <Link to="#" className="page-link"
+                                onClick={() => paginate(currentPage - 1)}
+                            >&lt;</Link></li>
+                        )
+                    }
 
-        </nav>
+                    {pageNumbers.map(number => (
+                        <li id={`page-${number}`} key={number} className="page-item">
+                            <Link to="#" className="page-link"
+                                onClick={() => paginate(number)}
+                            >
+                                {number}
+                            </Link>
+                        </li>
+                    ))}
+
+                    {
+                        currentPage < pageNumbers.length && (
+                            <li className="page-item"> <Link to="#" className="page-link"
+                                onClick={() => paginate(currentPage = 1)}
+                            >&gt;</Link></li>
+                        )
+                    }
+                    <li className="page-item"> <Link to="#" className="page-link"
+                        onClick={() => paginate(pageNumbers.length)}
+                    >&gt;&gt;</Link></li>
+
+                </ul>
+
+            </nav>
+        </Router>
     )
 }
 
