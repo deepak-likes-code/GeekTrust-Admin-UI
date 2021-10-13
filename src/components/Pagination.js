@@ -9,7 +9,7 @@ const Pagination = ({ currentPage, usersPerPage, totalUsers, paginate }) => {
     }
 
     return (
-        <nav>
+        <nav className="page">
             <ul className="pagination">
                 <li className="page-item"> <a href="!#" className="page-link"
                     onClick={() => paginate(1)}

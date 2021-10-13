@@ -1,5 +1,6 @@
 body {
   width: 100vw;
+  overflow-x: hidden;
 }
 
 a {
@@ -65,9 +66,14 @@ form * {
   border-color: rgb(28, 135, 202);
 }
 
+footer {
+  display: flex;
+  justify-content: center;
+}
+
 #delete {
   cursor: pointer;
-  width: 50%;
+  width: 30%;
   margin: auto;
   font-size: 1.2rem;
   background-color: rgb(91, 101, 236);
@@ -93,7 +99,9 @@ button {
 .pagination {
   width: 50%;
   margin: auto;
+  margin-right: 5rem;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   list-style: none;

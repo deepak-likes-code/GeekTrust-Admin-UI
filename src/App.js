@@ -89,6 +89,7 @@ const App = () => {
     setEditFormData(formValues)
   }
 
+  // Handle Form Submit
   const handleAddFormSubmit = e => {
     e.preventDefault()
 
@@ -113,22 +114,6 @@ const App = () => {
 
     console.log(e.target.value)
     setSearchTerm(e.target.value.toLowerCase())
-
-    // const newUsers = users.filter(val => {
-    //   if (searchTerm === "") {
-    //     return val
-    //   } else if (
-    //     val.name.toLowerCase().includes(searchTerm) || val.email.toLowerCase().includes(searchTerm)
-    //     || val.role.toLowerCase().includes(searchTerm)
-    //   ) {
-    //     return val
-    //   }
-    // })
-
-    // setSearchedUsers(newUsers)
-
-
-
   }
 
   const handleDeleteClick = (e, user) => {
@@ -149,23 +134,30 @@ const App = () => {
     setUsers(unSelectedUsers)
   }
 
-
-
-
   // Get currentPageUsers
-
-
-
   const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
 
-
   // Change Page
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+  // Search Filter and paginate
+  const searchFilter = (x) => {
+    const filteredContent = x.filter(val => (
+      val.name.toLowerCase().includes(searchTerm) || val.email.toLowerCase().includes(searchTerm)
+      || val.role.toLowerCase().includes(searchTerm)
+    ))
 
+    console.log('filterSearchContent:', filteredContent.length)
+    return filteredContent
+  }
+
+  const filterContentPaginate = (x) => {
+    const filteredContent = searchFilter(x)
+    return filteredContent.slice(indexOfFirstUser, indexOfLastUser);
+
+  }
 
   return (
 
@@ -191,30 +183,49 @@ const App = () => {
 
 
 
-            {currentUsers.filter((val) => {
-              if (searchTerm === "") {
-                return val
-              } else if (
-                val.name.toLowerCase().includes(searchTerm) || val.email.toLowerCase().includes(searchTerm)
-                || val.role.toLowerCase().includes(searchTerm)
-              ) {
-                return val
-              }
-            }).map(user => (
-              <>
 
-                {editUserId === parseInt(user.id) ? (
-                  <EditUser editFormData={editFormData} handleEditFormChange={handleEditFormChange} />
-                ) : (
-                    <User user={user} key={user.id} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} />
-                  )}
-              </>
-            ))}
+
+            {searchTerm !== "" && (
+              (
+
+                filterContentPaginate(users)).map(user => (
+                  <>
+                    {editUserId === parseInt(user.id) ? (
+                      <EditUser editFormData={editFormData} handleEditFormChange={handleEditFormChange} />
+                    ) : (
+                        <User user={user} key={user.id} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} />
+                      )}
+                  </>
+                ))
+            )
+            }
+
+            {
+              searchTerm === "" && (
+                currentUsers.map(user => (
+                  <>
+
+                    {editUserId === parseInt(user.id) ? (
+                      <EditUser editFormData={editFormData} handleEditFormChange={handleEditFormChange} />
+                    ) : (
+                        <User user={user} key={user.id} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} />
+                      )}
+                  </>
+                ))
+              )
+            }
+
+
           </tbody>
         </table>
       </form>
-      <button id="delete" onClick={deleteSelected} >Delete Selected</button>
-      <Pagination usersPerPage={usersPerPage} totalUsers={users.length} currentPage={currentPage} paginate={paginate} />
+      <footer>
+
+        <button id="delete" onClick={deleteSelected} >Delete Selected</button>
+        <Pagination usersPerPage={usersPerPage}
+          totalUsers={searchTerm !== "" ? searchFilter(users).length : users.length}
+          currentPage={currentPage} paginate={paginate} />
+      </footer>
     </div>
   )
 }
