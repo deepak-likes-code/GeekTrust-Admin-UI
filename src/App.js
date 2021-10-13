@@ -7,15 +7,20 @@ import Search from './components/Search'
 import Pagination from './components/Pagination'
 
 
+
+/** The App function cointains the body  */
 const App = () => {
 
 
+  /**
+ * Gets user data from the provided users API
+ * @async
+ */
   const getUserData = async () => {
     const { data } = await axios.get('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json')
     console.log(data)
     return data
   }
-
 
 
   const [users, setUsers] = useState([])
@@ -47,7 +52,10 @@ const App = () => {
 
 
 
-
+  /**
+   * Highligths the users who have been selected
+   * @param {click onClick} e 
+   */
   const checkedAll = (e) => {
 
     const userField = document.getElementsByClassName('user')
@@ -68,7 +76,10 @@ const App = () => {
     }
   }
 
-
+  /**
+   * Function to handle the edit option for update user data
+   * @param {click Event} e 
+   */
   const handleEditFormChange = e => {
     e.preventDefault()
 
@@ -84,6 +95,10 @@ const App = () => {
 
   }
 
+  /**
+ * Function to handle the edit click option for update user data
+ * @param {click Event} e 
+ */
   const handleEditClick = (e, user) => {
     e.preventDefault()
     setEditUserId(parseInt(user.id))
@@ -97,7 +112,10 @@ const App = () => {
     setEditFormData(formValues)
   }
 
-  // Handle Form Submit
+  /**
+  * Function to handle the edit option for update user data
+  * @param {click Event} e 
+  */
   const handleAddFormSubmit = e => {
     e.preventDefault()
 
@@ -118,6 +136,10 @@ const App = () => {
 
   }
 
+  /**
+ * Function to to use search functionality
+ * @param {click on Search term change} e 
+ */
   const setSearch = e => {
 
     console.log(e.target.value)
