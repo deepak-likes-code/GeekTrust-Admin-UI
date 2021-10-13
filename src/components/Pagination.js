@@ -2,6 +2,9 @@ import React from 'react'
 
 const Pagination = ({ currentPage, usersPerPage, totalUsers, paginate }) => {
 
+
+
+
     const pageNumbers = []
 
     for (let i = 1; i <= Math.ceil(totalUsers / usersPerPage); i++) {
@@ -35,7 +38,7 @@ const Pagination = ({ currentPage, usersPerPage, totalUsers, paginate }) => {
                 {
                     currentPage < pageNumbers.length && (
                         <li className="page-item"> <a href="!#" className="page-link"
-                            onClick={() => paginate(currentPage - 1)}
+                            onClick={() => paginate(currentPage + 1)}
                         >&gt;</a></li>
                     )
                 }

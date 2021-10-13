@@ -33,9 +33,16 @@ const App = () => {
     getUserData()
       .then(data => {
         setUsers(data)
-      })
+
+      }).then(
+        () => pageNumberColor(1)
+
+      )
+
 
   }, [])
+
+  useEffect(() => pageNumberColor(currentPage), [currentPage])
 
 
 
@@ -156,6 +163,25 @@ const App = () => {
   const filterContentPaginate = (x) => {
     const filteredContent = searchFilter(x)
     return filteredContent.slice(indexOfFirstUser, indexOfLastUser);
+
+  }
+
+  const pageNumberColor = (pageNumber) => {
+
+    const otherPages = document.getElementsByClassName('page-item')
+    if (otherPages) {
+      for (let i = 0; i < otherPages.length; i++) {
+        otherPages.item(i).classList.remove('selected')
+      }
+    }
+
+
+    const currentPage = document.getElementById(`page-${pageNumber}`)
+
+    if (currentPage) {
+      currentPage.classList.add('selected')
+    }
+    console.log(currentPage)
 
   }
 
